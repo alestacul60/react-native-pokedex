@@ -14,6 +14,10 @@ export interface Pokemon{
             name: string;
         }
     }[]
+
+    species:{
+        url: string;
+    }
 }
 
 export interface AllPokemon{
@@ -26,6 +30,12 @@ export interface AllPokemon{
     }[]
 }
 
+export interface Species{
+    flavor_text_entries:{
+        flavor_text: string,
+    }[]
+}
+
 export async function fetchFn( endpoint: string ){
     const response = await fetch( endpoint);
     return response.json();
@@ -33,5 +43,14 @@ export async function fetchFn( endpoint: string ){
 
 export async function fetchAllPokemon({pageParam} : { pageParam ?: string }) {
     const response = await fetch( pageParam || 'https://pokeapi.co/api/v2/pokemon/' );
+    return response.json();
+}
+
+export async function fetchPokemon(name: string){
+    const response = await fetch( 'https://pokeapi.co/api/v2/pokemon/' + name);
+    if(!response.ok){
+        throw new Error(`El Pokemon ${name} no fue encontrado, sos un cuerno`);
+    }
+
     return response.json();
 }

@@ -1,17 +1,16 @@
 import { useQuery } from 'react-query';
-import { fetchFn, Pokemon } from '../utils/api';
+import { fetchFn, fetchPokemon, Pokemon } from '../utils/api';
 import { useNavigation } from '@react-navigation/native';
 import type { MainStackScreenProps } from '../navigators/types';
 import { Box, Heading, Image, Text, HStack, Pressable, Center, AspectRatio, Skeleton, Stack } from 'native-base';
 import { formatNumber, getTypeColor } from '../utils/helper';
 
 interface PokemonCardProps{
-    url: string;
     name: string;
 }
 
-export default function PokemonCard({url, name} : PokemonCardProps ){
-    const { isLoading, error, data} = useQuery<Pokemon>(['pokemon', name], () => fetchFn(url))
+export default function PokemonCard({ name } : PokemonCardProps ){
+    const { isLoading, error, data} = useQuery<Pokemon>(['pokemon', name], () => fetchPokemon(name))
     const navigation = useNavigation<MainStackScreenProps<'Home'>['navigation']>();
 
     if (isLoading) return (

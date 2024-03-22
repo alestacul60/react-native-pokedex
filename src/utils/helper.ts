@@ -28,4 +28,8 @@ export const typesColors = {
   // formats number to three digits
   export const formatNumber = (num: number) => {
     return num.toString().padStart(3, '0');
-  };
+  }
+
+  export const removeEscapeCharacters = (str: string) => {
+    return str.replace(/[\n\r\t\f]/g, ' ');
+  }

@@ -25,7 +25,17 @@ export function MainNavigator(){
             <Stack.Group screenOptions={{presentation: 'modal'}}>
                 <Stack.Screen name='Search'component={ Search } />
             </Stack.Group>
-            <Stack.Screen name='Detail'component= {Detail } />
+            <Stack.Screen 
+                name='Detail'
+                component= {Detail }
+                options={{
+                    headerTitle: '',
+                    headerTransparent: true,
+                    headerTintColor: 'white',
+
+                }}
+
+            />
         </Stack.Navigator>
     )
 }
