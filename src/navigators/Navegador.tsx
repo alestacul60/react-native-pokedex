@@ -1,21 +1,45 @@
-import React, { useState } from 'react';
-import {View} from 'react-native';
-import ProductList from '../components/ProductList';
-import { Center, Icon, Input, Stack } from 'native-base';
+import React from 'react';
+import {TouchableOpacity, View} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import Buscador from '../components/Buscador';
+import { Buscador } from '../screens/Buscador';
+import { Inicio } from '../screens/Inicio';
+import { Detalle } from '../screens/Detalle';
+import type { MainStackParamsList } from "./types";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+const Stack = createNativeStackNavigator<MainStackParamsList>();
 
 export default function Navegador() {
     
     return (
-    
-    <Stack flex={1} p="12">
-        <Buscador/>
-        <Center>
-            <ProductList />
-        </Center>
-    </Stack>
+
+<Stack.Navigator>
+            <Stack.Screen name= 'Inicio' 
+                          component={ Inicio } 
+                          options={({ navigation }) => ({
+                            headerLargeTitle: true,
+                            headerRight: () => (
+                                <TouchableOpacity onPress={()=> navigation.navigate('Buscador')}>
+                                    <MaterialIcons name="search" color="black" size={32} />
+                                </TouchableOpacity>
+                            ),
+                })}
+            />
+            <Stack.Group screenOptions={{presentation: 'modal'}}>
+                <Stack.Screen name='Buscador'component={ Buscador } />
+            </Stack.Group>
+            <Stack.Screen 
+                name='Detalle'
+                component= { Detalle }
+                options={{
+                    headerTitle: '',
+                    headerTransparent: true,
+                    headerTintColor: 'white',
+
+                }}
+
+            />
+        </Stack.Navigator>
             
   );
 }

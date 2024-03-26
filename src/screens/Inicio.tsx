@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { FlatList, Text } from 'react-native';
-import { useQuery } from "react-query";
-import ProductCard from "./ProductCard";
-import { getProducts } from '../utils/api';
+import { useInfiniteQuery, useQuery } from "react-query";
+import ProductCard from "../components/ProductCard";
+import { AllProducts, getProducts } from '../utils/api';
+import { Center, Spinner } from 'native-base';
 
-const ProductList = () => {
 
-    const { data, status } = useQuery(['products'], getProducts);
+export function Inicio() {
+
+    const { data, status } = useQuery(['product'], getProducts);
 
     if (status === 'loading') {
         return <Text>Recuperando los productos...</Text>;
@@ -19,10 +21,9 @@ const ProductList = () => {
     return (
         <FlatList
             data={data.results}
-            renderItem={({ item }) => <ProductCard product={item} />}
+            renderItem={({ item }) => <ProductCard id={item} />}
             keyExtractor={item => item.id}
         />
     );
 }
 
-export default ProductList;

@@ -54,3 +54,44 @@ export async function fetchPokemon(name: string){
 
     return response.json();
 }
+
+export interface Product {
+    id: number;
+    name: string;
+    category: string;
+    description: string;
+    image: string;
+    price: number;
+  }
+  
+export interface ProductCardProps {
+    id: number;
+  }
+
+
+  export interface AllProducts{
+    page: number;
+    per_page: number;
+    total: number;
+    total_pages: number;
+    data: {
+        id: string;
+        name: string;
+        category: string;
+        description: string;
+        image: string;
+        price: number;
+    }[]
+}
+
+export async function getProducts(){
+    const response = await fetch(`https://peticiones.online/api/products`);
+    return response.json();
+}
+
+export async function getOneProduct(id: number){
+    const response = await fetch(`https://peticiones.online/api/products/` + id);
+    return response.json();
+}
+
+
